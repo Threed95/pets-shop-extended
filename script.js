@@ -100,6 +100,14 @@ const itemsContainer = document.querySelector("#shop-items");
 const itemTemplate = document.querySelector("#item-template");
 const nothingFound = document.querySelector("#nothing-found");
 
-const { title, description, tags, price, img, rating } = shopItem;
+function makeCard(shopItem) {
+    const { title, description, tags, price, img, rating } = shopItem;
+    const item = itemTemplate.content.cloneNode(true);
 
-const item = itemTemplate.content.cloneNode(true);
+    item.querySelector("h1").textContent = title;
+    item.querySelector("p").textContent = description;
+    item.querySelector("img").src = img;
+    item.querySelector(".price").textContent = `${price}Р`;
+
+
+}
