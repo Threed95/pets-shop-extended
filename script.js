@@ -109,5 +109,13 @@ function makeCard(shopItem) {
     item.querySelector("img").src = img;
     item.querySelector(".price").textContent = `${price}Р`;
 
+    const ratingContainer = item.querySelector(".rating");
+    for (let i = 0; i < rating; i++) {
+        const star = document.createElement("i");
+        star.classList.add("fa", "fa-star");
+        ratingContainer.append(star);
+
+    }
+
 
 }
