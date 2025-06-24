@@ -99,3 +99,7 @@ const items = [{
 const itemsContainer = document.querySelector("#shop-items");
 const itemTemplate = document.querySelector("#item-template");
 const nothingFound = document.querySelector("#nothing-found");
+
+const { title, description, tags, price, img, rating } = shopItem;
+
+const item = itemTemplate.content.cloneNode(true);
