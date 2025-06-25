@@ -127,3 +127,19 @@ function makeCard(shopItem) {
 
     return item;
 }
+
+let copyItems = [...items];
+
+function renderItems(arr) {
+    nothingFound.textContent = "";
+    itemsContainer.innerHTML = "";
+    arr.forEach((item) => {
+        itemsContainer.append(makeCard(item));
+        if (!arr.length) {
+            nothingFound.textContent = "Ничего не найдено"
+        }
+
+    })
+}
+
+renderItems(copyItems)
