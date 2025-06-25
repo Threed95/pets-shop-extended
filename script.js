@@ -1,3 +1,5 @@
+const { createElement } = require("react");
+
 const items = [{
         title: "Игрушка мячик",
         description: "Ваш питомец будет счастлив!",
@@ -114,8 +116,14 @@ function makeCard(shopItem) {
         const star = document.createElement("i");
         star.classList.add("fa", "fa-star");
         ratingContainer.append(star);
-
     }
+    const tagsHolder = item.querySelector(".tags");
+    tags.forEach((tag) => {
+        const element = createElement("span");
+        element.textContent = tag;
+        element.classList.add("tag");
+        tagsHolder.append(element);
+    })
 
-
+    return item;
 }
