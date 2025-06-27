@@ -1,5 +1,3 @@
-const { createElement } = require("react");
-
 const items = [{
         title: "Игрушка мячик",
         description: "Ваш питомец будет счастлив!",
@@ -97,10 +95,36 @@ const items = [{
         rating: 4.1,
     },
 ];
+let copyItems = [...items];
 
 const itemsContainer = document.querySelector("#shop-items");
 const itemTemplate = document.querySelector("#item-template");
 const nothingFound = document.querySelector("#nothing-found");
+
+function renderItems(arr) {
+    nothingFound.textContent = "";
+    itemsContainer.innerHTML = "";
+    arr.forEach((item) => {
+        itemsContainer.append(makeCard(item));
+        if (!arr.length) {
+            nothingFound.textContent = "Ничего не найдено"
+        }
+
+    })
+}
+
+function sortByAlphabet(a, b) {
+    if (a.title > b.title) {
+        return 1;
+    }
+    if (a.title < b.title) {
+        return -1;
+    }
+    return 0;
+}
+
+renderItems(copyItems.sort((a, b) => sortByAlphabet(a, b)));
+
 
 function makeCard(shopItem) {
     const { title, description, tags, price, img, rating } = shopItem;
@@ -119,7 +143,7 @@ function makeCard(shopItem) {
     }
     const tagsHolder = item.querySelector(".tags");
     tags.forEach((tag) => {
-        const element = createElement("span");
+        const element = document.createElement("span");
         element.textContent = tag;
         element.classList.add("tag");
         tagsHolder.append(element);
@@ -128,18 +152,31 @@ function makeCard(shopItem) {
     return item;
 }
 
-let copyItems = [...items];
 
-function renderItems(arr) {
-    nothingFound.textContent = "";
-    itemsContainer.innerHTML = "";
-    arr.forEach((item) => {
-        itemsContainer.append(makeCard(item));
-        if (!arr.length) {
-            nothingFound.textContent = "Ничего не найдено"
-        }
-
-    })
-}
-
-renderItems(copyItems)
+const sortControl = document.querySelector("#sort");
+sortControl.addEventListener("change", (event) => {
+    const selectedOption = event.target.value;
+    switch (selectedOption) {
+        case "expensive":
+            {
+                copyItems.sort((a, b) => b.price - a.price);
+                break;
+            }
+        case "cheap":
+            {
+                copyItems.sort((a, b) => a.price - b.price);
+                break;
+            }
+        case "rating":
+            {
+                copyItems.sort((a, b) => b.rating - a.rating);
+                break;
+            }
+        case "alphabet":
+            {
+                copyItems.sort((a, b) => sortByAlphabet(a, b));
+                break;
+            }
+    }
+    renderItems(copyItems);
+});
