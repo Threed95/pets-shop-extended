@@ -180,3 +180,19 @@ sortControl.addEventListener("change", (event) => {
     }
     renderItems(copyItems);
 });
+
+const searchInput = document.querySelector("#search-input");
+const searchButton = document.querySelector("#search-btn");
+
+function applySearch() {
+    const searchString = searchInput.value.trim().toLowerCase();
+    copyItems = items.filter((el) =>
+        el.title.toLowerCase().includes(searchString)
+    );
+    copyItems.sort((a, b) => sortByAlphabet(a, b));
+    sortControl.selectedIndex = 0;
+    renderItems(copyItems);
+}
+
+searchButton.addEventListener("click", applySearch);
+searchInput.addEventListener("search", applySearch);
